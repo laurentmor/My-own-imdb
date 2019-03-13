@@ -1,0 +1,1 @@
+worker: py entertainment_centre.py

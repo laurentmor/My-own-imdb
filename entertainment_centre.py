@@ -7,7 +7,7 @@ import json
 movies = []
 
 # Web service adress from which to fetch relevant movie infos
-SERVICE_URL = "http://www.omdbapi.com/?i={id}&plot=short&r=json"
+SERVICE_URL = "http://www.omdbapi.com/?i={id}&plot=short&r=json&apikey=1cabed06"
 
 # Youtube trailer URL
 YT_URL = "https://www.youtube.com/watch?v={video_id}"
@@ -58,7 +58,7 @@ def get_movie_json_data(movie_id):
 
         r = requests.get(url)
         result = json.loads(r.text)
-    except valuesError:
+    except ValueError:
         print(NO_JSON_DATA_RECEIVED.format(id=movie_id))
     return result
 
@@ -69,12 +69,13 @@ def build_movie_list_from_file(file):
             data = entry.split(DELIMITER)
             movie_json_info = get_movie_json_data(data[IMDB_ID_INDEX])
             current_movie = Movie(
-                movie_json_info[FIELDS.TITLE],
-                movie_json_info[FIELDS.PLOT],
-                movie_json_info[FIELDS.POSTER],
+               movie_json_info[FIELDS.TITLE],
+               movie_json_info[FIELDS.PLOT],
+               movie_json_info[FIELDS.POSTER],
                 build_youtube__url(data[YT_ID_INDEX]),
                 movie_json_info[FIELDS.RATING])
             movies.append(current_movie)
+          
 
 build_movie_list_from_file(FILE)
 site.open_movies_page(movies)

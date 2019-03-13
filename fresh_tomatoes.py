@@ -2,7 +2,6 @@ import webbrowser
 import os
 import re
 
-
 # Styles and scripting for the page
 main_page_head = '''
 <!DOCTYPE html>
@@ -40,7 +39,7 @@ main_page_head = '''
         font-size:bold;
         background-color:black;
         border: 5px solid black;
-        margin:25px;
+        margin:30px;
 
         }
 
@@ -100,7 +99,6 @@ main_page_head = '''
 </head>
 '''
 
-
 # The main page layout and title bar
 main_page_top = '''
   <body>
@@ -141,7 +139,6 @@ end = '''
 </html>
 '''
 
-
 # A single movie entry html template
 movie_tile_content = '''
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
@@ -158,6 +155,7 @@ empty_movies_list_content = '''
         <strong>Info:</strong> No movies to show
     </div>
 '''
+
 
 def create_movie_tiles_content(movies):
     # The HTML content for this section of the page
@@ -183,22 +181,23 @@ def create_movie_tiles_content(movies):
 
     return content
 
+
 def open_movies_page(movies):
     # Create or overwrite the output file
     output_file = open('fresh_tomatoes.html', 'w')
 
     # process main content depending if there' movies to show or not
-    if(len(movies) == 0):
-        rendered_content=empty_movies_list_content
+    if (len(movies) == 0):
+        rendered_content = empty_movies_list_content
     else:
         # Replace the movie tiles placeholder generated content
         rendered_content = main_page_movies_list.format(
-        movie_tiles=create_movie_tiles_content(movies))
+            movie_tiles=create_movie_tiles_content(movies))
 
     # Output the file
     output_file.write(main_page_head + main_page_top + rendered_content + end)
     output_file.close()
 
     # open the output file in the browser (in a new tab, if possible)
-    url = os.path.abspath(output_file.name)
-    webbrowser.open('file://' + url, new=2)
+    # url = os.path.abspath(output_file.name)
+    # webbrowser.open('file://' + url, new=2)
