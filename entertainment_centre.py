@@ -3,10 +3,13 @@ from collections import namedtuple
 import fresh_tomatoes as site
 import requests
 import json
+import logging as log
+
 
 movies = []
-
-# Web service adress from which to fetch relevant movie infos
+# logging is needed to see if file is run by heroku
+log.basicConfig(level=log.DEBUG)
+# Web service address from which to fetch relevant movie infos
 SERVICE_URL = "http://www.omdbapi.com/?i={id}&plot=short&r=json&apikey=1cabed06"
 
 # Youtube trailer URL
@@ -18,7 +21,7 @@ IMDB_ID_INDEX = 0
 
 # No JSON data error message
 NO_JSON_DATA_RECEIVED = "No JSON data received for movie : {id}"
-# Structure used to encapsulat Json fields
+# Structure used to encapsulate Json fields
 JSON_FIELDS = namedtuple("JSON_FIELDS", "POSTER RATING PLOT TITLE")
 FIELDS = JSON_FIELDS("Poster", "imdbRating", "Plot", "Title")
 
@@ -39,6 +42,7 @@ def build_youtube__url(vid_id):
 
     Returns complete and usable video URL
     """
+
     return YT_URL.format(video_id=vid_id)
 
 # Get all json values from movie
@@ -75,7 +79,7 @@ def build_movie_list_from_file(file):
                 build_youtube__url(data[YT_ID_INDEX]),
                 movie_json_info[FIELDS.RATING])
             movies.append(current_movie)
-          
+
 
 build_movie_list_from_file(FILE)
 site.open_movies_page(movies)
