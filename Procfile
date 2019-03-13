@@ -1,1 +1,1 @@
-worker: py entertainment_centre.py
+worker: python entertainment_centre.py
