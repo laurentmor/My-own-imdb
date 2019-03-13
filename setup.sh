@@ -1,1 +1,1 @@
-echo "Hello, this is a test"
+python entertainment_centre.py
