@@ -184,7 +184,7 @@ def create_movie_tiles_content(movies):
 
 def open_movies_page(movies):
     # Create or overwrite the output file
-    output_file = open('fresh_tomatoes.html', 'w')
+    output_file = open('web/fresh_tomatoes.html', 'w')
 
     # process main content depending if there' movies to show or not
     if (len(movies) == 0):
