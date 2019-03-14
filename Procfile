@@ -1,1 +1,1 @@
-web: python -m http.server 8080
+web: vendor/bin/heroku-php-apache2 web/
